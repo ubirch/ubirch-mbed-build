@@ -15,7 +15,7 @@ function build_container() {
     if [ $? -eq 0 ]; then
         echo ${GO_PIPELINE_LABEL} > VAR/${GO_PIPELINE_NAME}_${GO_STAGE_NAME}
         docker tag ${IMAGEID} ${CONTAINER_NAME}:latest
-        docker tag ${IMAGEID} ${CONTAINER_NAME}:v${GO_PIPELINE_LABEL:v0}
+        docker tag ${IMAGEID} ${CONTAINER_NAME}:${GO_PIPELINE_LABEL:v0}
      else
         echo "Docker build failed"
         exit 1
@@ -26,7 +26,7 @@ function build_container() {
 # publish the new docker container
 function publish_container() {
   echo "Publishing Docker Container with version: ${GO_PIPELINE_LABEL}"
-  docker push ${CONTAINER_NAME}:v${GO_PIPELINE_LABEL}
+  docker push ${CONTAINER_NAME}:${GO_PIPELINE_LABEL}
 
 
   if [ $? -eq 0 ]; then
